@@ -81,25 +81,30 @@ function App() {
 
   // User is authenticated - show main app
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-gray-900">
+      <header className="glass-dark border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-2xl font-bold text-gray-900">X Insights</h1>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">X</span>
+              </div>
+              <h1 className="text-2xl font-bold gradient-text">X Insights</h1>
+            </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 {user.profileImage && (
                   <img 
                     src={user.profileImage} 
                     alt={user.name}
-                    className="w-8 h-8 rounded-full"
+                    className="w-8 h-8 rounded-full border-2 border-purple-500/50"
                   />
                 )}
-                <span className="text-gray-700 font-medium">@{user.username}</span>
+                <span className="text-white font-medium">@{user.username}</span>
               </div>
               <button
                 onClick={() => authService.logout()}
-                className="text-gray-500 hover:text-gray-700 text-sm"
+                className="text-gray-400 hover:text-white text-sm transition-colors"
               >
                 Logout
               </button>
@@ -110,20 +115,23 @@ function App() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Welcome, {user.name}!
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Welcome, <span className="gradient-text-accent">{user.name}</span>!
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-400 mb-8 text-lg">
             Your personality analysis will appear here. Coming soon in Module 2!
           </p>
           
           {/* Placeholder for results */}
-          <div className="bg-white rounded-lg shadow p-8 max-w-2xl mx-auto">
+          <div className="glass-dark rounded-2xl p-8 max-w-2xl mx-auto border border-white/10">
             <div className="text-gray-400">
-              <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              <p>Analysis engine coming in Module 2...</p>
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <p className="text-lg text-gray-300">Analysis engine coming in Module 2...</p>
+              <p className="text-sm text-gray-500 mt-2">Stay tuned for personality insights!</p>
             </div>
           </div>
         </div>

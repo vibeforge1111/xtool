@@ -1,124 +1,272 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Brain, Zap, MessageCircle, TrendingUp, Eye, Lightbulb } from 'lucide-react';
 
-const loadingMessages = [
-  "Analyzing your digital personality...",
-  "Reading between the tweets...", 
-  "Decoding your social patterns...",
-  "Discovering your Twitter archetype...",
-  "Measuring your meme potential...",
-  "Calculating your viral coefficient...",
-  "Mapping your engagement style...",
-  "Processing your digital DNA...",
-  "Unveiling your online persona...",
-  "Almost done with the magic...",
+const viralMessages = [
+  { text: "Judging your ratio'd tweets...", icon: Eye },
+  { text: "Calculating how chronically online you are...", icon: Lightbulb },
+  { text: "Found 47 unhinged takes at 3am...", icon: Brain },
+  { text: "Your Twitter is giving ✨trauma✨", icon: TrendingUp },
+  { text: "bestie your tweets are... concerning", icon: MessageCircle },
+  { text: "Determining if you need to touch grass...", icon: Zap },
+  { text: "not the keyboard smashing era 💀", icon: Brain },
+  { text: "Your villain arc started in 2020 fr", icon: Eye },
+  { text: "why are you tweeting at 4:17 AM??", icon: Lightbulb },
+  { text: "no but like... who hurt you?", icon: Zap },
+  { text: "the delulu is strong with this one", icon: Brain },
+  { text: "you're either 14 or 41, no in between", icon: Eye },
+  { text: "your tweets failed the vibe check", icon: MessageCircle },
+  { text: "girlie this is NOT the serve you think it is", icon: TrendingUp },
+  { text: "caught in 4K being cringe", icon: Lightbulb },
+  { text: "main character syndrome detected", icon: Zap },
+  { text: "respectfully... seek help", icon: Brain },
+  { text: "your twitter is a cry for help and we hear you", icon: Eye },
+  { text: "no thoughts, just vibes (derogatory)", icon: MessageCircle },
+  { text: "it's giving unemployed", icon: TrendingUp },
 ];
 
 const LoadingAnalysis: React.FC = () => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [tweetsAnalyzed, setTweetsAnalyzed] = useState(0);
+  const [wordsProcessed, setWordsProcessed] = useState(0);
+  const [patternsFound, setPatternsFound] = useState(0);
 
   useEffect(() => {
-    // Update message every 2.5 seconds
+    // Update message every 2.5 seconds with smooth transitions
     const messageInterval = setInterval(() => {
-      setCurrentMessage(prev => (prev + 1) % loadingMessages.length);
+      setCurrentMessage(prev => (prev + 1) % viralMessages.length);
     }, 2500);
 
-    // Update progress bar
+    // Smooth progress increment
     const progressInterval = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 95) return prev; // Stop at 95% to keep some suspense
-        return prev + Math.random() * 3 + 1; // Random increment between 1-4
+        if (prev >= 95) return prev; // Stop at 95% for suspense
+        return prev + Math.random() * 2 + 0.5; // Random increment
       });
-    }, 200);
+    }, 150);
+
+    // Counter animations
+    const statsInterval = setInterval(() => {
+      setTweetsAnalyzed(prev => Math.min(prev + Math.floor(Math.random() * 15) + 5, 200));
+      setWordsProcessed(prev => Math.min(prev + Math.floor(Math.random() * 500) + 200, 42000));
+      setPatternsFound(prev => Math.min(prev + Math.floor(Math.random() * 3) + 1, 87));
+    }, 300);
 
     return () => {
       clearInterval(messageInterval);
       clearInterval(progressInterval);
+      clearInterval(statsInterval);
     };
   }, []);
 
+  const CurrentIcon = viralMessages[currentMessage].icon;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full text-center">
-        {/* Logo/Brand */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            X Insights
-          </h1>
-          <p className="text-gray-600">AI-Powered Personality Analysis</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/30 to-blue-900/30 flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Floating Background Elements */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-40"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
 
-        {/* Animated Brain/Analysis Icon */}
-        <div className="relative mb-8">
-          <div className="w-24 h-24 mx-auto relative">
-            {/* Outer rotating ring */}
-            <div className="absolute inset-0 border-4 border-blue-200 rounded-full animate-spin"></div>
-            
-            {/* Inner pulsing circle */}
-            <div className="absolute inset-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse flex items-center justify-center">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
+      <div className="max-w-lg w-full text-center relative z-10">
+        {/* Brand Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12"
+        >
+          <div className="flex items-center justify-center space-x-2 mb-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <Zap size={16} className="text-white" />
             </div>
-
-            {/* Floating particles */}
-            <div className="absolute -top-2 -left-2 w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-            <div className="absolute -top-2 -right-2 w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-            <div className="absolute -bottom-2 -left-2 w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '1.5s' }}></div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              X Insights
+            </h1>
           </div>
+          <p className="text-gray-400 text-sm">AI-Powered Personality Analysis</p>
+        </motion.div>
+
+        {/* Main Analysis Animation */}
+        <div className="relative mb-12">
+          {/* Outer Rotating Ring */}
+          <motion.div
+            className="w-32 h-32 mx-auto relative"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute inset-0 border-4 border-transparent bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" 
+                 style={{ padding: '4px' }}>
+              <div className="w-full h-full bg-gray-900 rounded-full"></div>
+            </div>
+          </motion.div>
+          
+          {/* Inner Pulsing Core */}
+          <motion.div
+            className="absolute inset-0 w-32 h-32 mx-auto"
+            animate={{ 
+              scale: [1, 1.1, 1],
+              boxShadow: [
+                "0 0 20px rgba(147, 51, 234, 0.5)",
+                "0 0 40px rgba(236, 72, 153, 0.8)",
+                "0 0 20px rgba(147, 51, 234, 0.5)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <div className="w-full h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+              <motion.div
+                key={currentMessage}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                exit={{ scale: 0, rotate: 180 }}
+                transition={{ duration: 0.5, type: "spring", bounce: 0.5 }}
+              >
+                <CurrentIcon size={32} className="text-white" />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Orbiting Particles */}
+          {[0, 1, 2, 3].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"
+              style={{
+                top: '50%',
+                left: '50%',
+                marginTop: '-6px',
+                marginLeft: '-6px',
+              }}
+              animate={{
+                x: [0, 60 * Math.cos((i * Math.PI) / 2), 0],
+                y: [0, 60 * Math.sin((i * Math.PI) / 2), 0],
+                scale: [0.5, 1, 0.5],
+                opacity: [0.3, 1, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: i * 0.5,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
         </div>
 
-        {/* Loading Message */}
+        {/* Status Message */}
         <div className="mb-8 h-16 flex items-center justify-center">
-          <p className="text-lg font-medium text-gray-700 transition-all duration-500 ease-in-out">
-            {loadingMessages[currentMessage]}
-          </p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentMessage}
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 1.1 }}
+              transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
+              className="text-lg font-medium text-white text-center max-w-sm mx-auto"
+            >
+              {viralMessages[currentMessage].text}
+            </motion.p>
+          </AnimatePresence>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
-            <span>Progress</span>
-            <span>{Math.round(progress)}%</span>
+          <div className="flex justify-between text-sm text-gray-400 mb-2">
+            <span>Analysis Progress</span>
+            <motion.span
+              key={Math.floor(progress)}
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              className="font-medium"
+            >
+              {Math.round(progress)}%
+            </motion.span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${Math.min(progress, 100)}%` }}
-            ></div>
+          <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
+            <motion.div 
+              className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full relative"
+              initial={{ width: "0%" }}
+              animate={{ width: `${Math.min(progress, 100)}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+              />
+            </motion.div>
           </div>
         </div>
 
-        {/* Fun Statistics */}
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="bg-white rounded-lg p-3 shadow-sm">
-            <div className="text-lg font-bold text-blue-600">
-              <span className="tabular-nums">200</span>
-            </div>
-            <div className="text-xs text-gray-500">Tweets Analyzed</div>
-          </div>
-          <div className="bg-white rounded-lg p-3 shadow-sm">
-            <div className="text-lg font-bold text-purple-600">
-              <span className="tabular-nums">{Math.round(progress * 0.42)}k</span>
-            </div>
-            <div className="text-xs text-gray-500">Words Processed</div>
-          </div>
-          <div className="bg-white rounded-lg p-3 shadow-sm">
-            <div className="text-lg font-bold text-green-600">
-              <span className="tabular-nums">{Math.round(progress * 0.12)}</span>
-            </div>
-            <div className="text-xs text-gray-500">Patterns Found</div>
-          </div>
-        </div>
+        {/* Live Statistics */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="grid grid-cols-3 gap-4"
+        >
+          {[
+            { value: tweetsAnalyzed, label: "Tweets", max: 200, color: "from-blue-500 to-cyan-500" },
+            { value: wordsProcessed, label: "Words", max: 42000, color: "from-purple-500 to-pink-500" },
+            { value: patternsFound, label: "Patterns", max: 87, color: "from-green-500 to-emerald-500" }
+          ].map((stat) => (
+            <motion.div
+              key={stat.label}
+              className="glass-dark rounded-xl p-4 backdrop-blur-lg border border-white/10"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", bounce: 0.4 }}
+            >
+              <motion.div
+                className={`text-xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                key={stat.value}
+                initial={{ scale: 1.2 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                {stat.value.toLocaleString()}
+                {stat.label === "Words" && "k"}
+              </motion.div>
+              <div className="text-xs text-gray-400 mt-1">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Trust Indicator */}
-        <div className="mt-8 flex items-center justify-center space-x-2 text-gray-500">
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-          </svg>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+          className="mt-8 flex items-center justify-center space-x-2 text-gray-500"
+        >
+          <motion.div
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <Zap size={16} />
+          </motion.div>
           <span className="text-sm">Your data is secure and private</span>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
