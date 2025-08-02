@@ -1,0 +1,80 @@
+{
+  "permissions": {
+    "auto_approve": {
+      "file_operations": {
+        "create_files": true,
+        "edit_files": true,
+        "delete_files": true,
+        "move_files": true,
+        "create_directories": true,
+        "delete_directories": true
+      },
+      "package_management": {
+        "npm_install": true,
+        "npm_create": true,
+        "npm_run": true,
+        "yarn_commands": true,
+        "package_json_edits": true
+      },
+      "git_operations": {
+        "git_init": true,
+        "git_add": true,
+        "git_commit": true,
+        "git_push": false,
+        "git_pull": true,
+        "git_checkout": true,
+        "git_branch": true,
+        "git_merge": true
+      },
+      "development_operations": {
+        "dev_server_start": true,
+        "build_commands": true,
+        "test_commands": true,
+        "lint_commands": true,
+        "format_commands": true
+      },
+      "system_operations": {
+        "create_env_files": true,
+        "modify_config_files": true,
+        "install_dependencies": true,
+        "clean_build_folders": true,
+        "remove_node_modules": true
+      }
+    },
+    "require_confirmation": {
+      "deployment": true,
+      "production_changes": true,
+      "database_migrations": true,
+      "external_api_calls": false,
+      "security_related": false
+    }
+  },
+  "project_preferences": {
+    "code_style": {
+      "indent_type": "spaces",
+      "indent_size": 2,
+      "quotes": "single",
+      "semicolons": true,
+      "trailing_commas": true
+    },
+    "tech_stack": {
+      "frontend": "React + TypeScript + Vite + Tailwind",
+      "backend": "Node.js + Express + TypeScript",
+      "database": "PostgreSQL",
+      "auth": "Twitter OAuth 2.0",
+      "deployment": "Vercel + Railway"
+    },
+    "development": {
+      "auto_format_on_save": true,
+      "auto_install_deps": true,
+      "prefer_latest_versions": true,
+      "use_typescript_strict": true
+    }
+  },
+  "workflow": {
+    "auto_commit_frequency": "never",
+    "auto_update_todos": true,
+    "verbose_logging": false,
+    "fast_mode": true
+  }
+}
